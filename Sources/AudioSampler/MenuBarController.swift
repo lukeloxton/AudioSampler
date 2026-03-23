@@ -155,7 +155,7 @@ class MenuBarController: NSObject, NSMenuDelegate {
                 let filter: SCContentFilter
                 if let bundleID = selectedBundleID,
                    let app = content.applications.first(where: { $0.bundleIdentifier == bundleID }) {
-                    filter = SCContentFilter(display: display, including: [app], exceptingWindows: [])
+                    filter = SCContentFilter(display: display, includingApplications: [app], exceptingWindows: [])
                 } else {
                     filter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
                 }
@@ -165,7 +165,7 @@ class MenuBarController: NSObject, NSMenuDelegate {
                 let outputURL = outputDirectory.appendingPathComponent(filename)
                 fputs("AudioSampler: writing to \(outputURL.path)\n", stderr)
                 let recorder = WAVRecorder(outputURL: outputURL)
-                try recorder.start()
+                recorder.start()
                 fputs("AudioSampler: recorder started\n", stderr)
                 self.recorder = recorder
 
